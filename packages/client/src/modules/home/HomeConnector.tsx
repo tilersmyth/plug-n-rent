@@ -1,3 +1,4 @@
 import * as React from "react";
+import { HomeView } from "./view/HomeView";
 
-export const HomeConnector = () => <div>Home page</div>;
+export const HomeConnector = () => <HomeView />;
