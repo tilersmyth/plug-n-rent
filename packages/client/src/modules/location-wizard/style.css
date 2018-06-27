@@ -1,0 +1,33 @@
+.steps-container {
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.steps-container .ant-steps-item .ant-steps-item-tail {
+  margin: 0 0 0 3px;
+}
+
+.steps-container .ant-steps-item .ant-steps-item-icon {
+  margin: 0;
+}
+
+.steps-container .ant-steps-item:last-child .ant-steps-item-content {
+  width: 0;
+}
+
+.steps-content.ant-card {
+  margin-top: 16px;
+  min-height: 200px;
+}
+
+.steps-action {
+  margin-top: 24px;
+}
+
+.btn-next.ant-btn {
+  float: right;
+}
+
+.btn-prev.ant-btn {
+  float: left;
+}
