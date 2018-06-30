@@ -4,23 +4,17 @@ import { StepActionView } from "./StepActionView";
 
 interface Props {
   steps: number[];
-  next: () => void;
   prev?: () => void;
 }
 
 export class Step3View extends React.PureComponent<Props> {
   render() {
-    const { steps, next, prev } = this.props;
+    const { steps, prev } = this.props;
     return (
       <React.Fragment>
         <Card className="steps-content" />
         <div className="steps-action">
-          <StepActionView
-            currentStep={3}
-            steps={steps}
-            next={next}
-            prev={prev}
-          />
+          <StepActionView currentStep={3} steps={steps} prev={prev} />
         </div>
       </React.Fragment>
     );

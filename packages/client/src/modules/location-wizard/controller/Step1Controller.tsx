@@ -1,39 +1,37 @@
 import * as React from "react";
 import { graphql, ChildMutateProps } from "react-apollo";
 import gql from "graphql-tag";
-
-export interface LocationMutationData {
-  path: string;
-  message: string;
-}
-
-export interface LocationMutation {
-  location: LocationMutationData[] | null;
-}
-
-interface LocationMutationVariables {
-  name: string;
-  slug: string;
-}
+import {
+  LocationMutationMutation,
+  LocationMutationMutationVariables
+} from "../../../operation-result-types";
 
 interface Props {
   currentStep: number;
+  nextStep: () => void;
   children: (
-    data: { submit: (values: LocationMutationVariables) => Promise<null> }
+    data: {
+      submit: (values: LocationMutationMutationVariables) => Promise<null>;
+    }
   ) => JSX.Element | null;
 }
 
 class C extends React.PureComponent<
-  ChildMutateProps<Props, LocationMutation, LocationMutationVariables>
+  ChildMutateProps<
+    Props,
+    LocationMutationMutation,
+    LocationMutationMutationVariables
+  >
 > {
-  submit = async (values: LocationMutationVariables) => {
-    console.log(values);
-
+  submit = async (values: LocationMutationMutationVariables) => {
     const response = await this.props.mutate({
       variables: values
     });
+    const { data } = response;
 
-    console.log("response: ", response);
+    console.log(data);
+
+    this.props.nextStep();
 
     return null;
   };
@@ -46,17 +44,32 @@ class C extends React.PureComponent<
   }
 }
 
-const registerMutation = gql`
-  mutation RegisterMutation($email: String!, $password: String!) {
-    register(email: $email, password: $password) {
-      path
-      message
+const locationMutation = gql`
+  mutation LocationMutation(
+    $locationId: String
+    $name: String!
+    $companyId: String!
+  ) {
+    createLocation(
+      locationId: $locationId
+      name: $name
+      companyId: $companyId
+    ) {
+      ok
+      location {
+        id
+        name
+      }
+      errors {
+        path
+        message
+      }
     }
   }
 `;
 
 export const Step1Controller = graphql<
   Props,
-  LocationMutation,
-  LocationMutationVariables
->(registerMutation)(C);
+  LocationMutationMutation,
+  LocationMutationMutationVariables
+>(locationMutation)(C);

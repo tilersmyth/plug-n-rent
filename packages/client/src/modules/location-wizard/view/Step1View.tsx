@@ -1,47 +1,67 @@
 import * as React from "react";
-import { Form, Card, Select } from "antd";
-import { withFormik, FormikErrors, FormikProps, Form as FForm } from "formik";
+import { Form, Card, Button } from "antd";
+import {
+  withFormik,
+  FormikErrors,
+  FormikProps,
+  Field,
+  Form as FForm
+} from "formik";
 
 import { StepActionView } from "./StepActionView";
+import { SelectCompany } from "../components/SelectCompany";
+import { validLocationSchema } from "../wizardSchemas";
+import { InputField } from "../../shared/InputField";
+
+import { LocationMutationMutationVariables } from "../../../operation-result-types";
+
+import { LocationType } from "../wizardTypes";
 
 const FormItem = Form.Item;
-const Option = Select.Option;
-
-interface FormValues {
-  company: string;
-  name: string;
-  slug: string;
-}
 
 interface Props {
+  Location: LocationType;
   steps: number[];
-  next: () => void;
   prev?: () => void;
-  submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
+  submit: (
+    values: LocationMutationMutationVariables
+  ) => Promise<FormikErrors<LocationMutationMutationVariables> | null>;
 }
 
-class C extends React.PureComponent<FormikProps<FormValues> & Props> {
+class C extends React.PureComponent<
+  FormikProps<LocationMutationMutationVariables> & Props
+> {
   render() {
-    const { steps, next, prev } = this.props;
+    const { Location, steps, prev } = this.props;
+    const { company } = Location;
     return (
       <React.Fragment>
         <FForm>
           <Card className="steps-content">
-            <FormItem>
-              <Select size="large" defaultValue="lucy">
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
-              </Select>
+            <h1 className="title_text">
+              {`Let's start by adding a location for ${company.name}.`}
+            </h1>
+            <p className="title_subtext">
+              Additional locations can be added later
+            </p>
+            <FormItem label="Assign to company" colon={false}>
+              <SelectCompany company={company} />
             </FormItem>
+
+            <Field
+              label="Location nickname"
+              name="name"
+              size="large"
+              placeholder="E.g. Broadway St."
+              component={InputField}
+            />
           </Card>
           <div className="steps-action">
-            <StepActionView
-              currentStep={1}
-              steps={steps}
-              next={next}
-              prev={prev}
-            />
+            <StepActionView currentStep={1} steps={steps} prev={prev} />
+
+            <Button type="primary" className="btn-next" htmlType="submit">
+              Next
+            </Button>
           </div>
         </FForm>
       </React.Fragment>
@@ -49,9 +69,13 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
   }
 }
 
-export const Step1View = withFormik<Props, FormValues>({
-  // validationSchema: validUserSchema,
-  mapPropsToValues: () => ({ company: "", name: "", slug: "" }),
+export const Step1View = withFormik<Props, LocationMutationMutationVariables>({
+  validationSchema: validLocationSchema,
+  mapPropsToValues: ({ Location }) => ({
+    locationId: Location.id ? Location.id : "",
+    name: Location.id ? Location.name : "",
+    companyId: Location.company.id
+  }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
     if (errors) {

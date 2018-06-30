@@ -31,3 +31,11 @@
 .btn-prev.ant-btn {
   float: left;
 }
+
+.title_text {
+  margin-bottom: 0;
+}
+
+.title_subtext {
+  color: #999999;
+}

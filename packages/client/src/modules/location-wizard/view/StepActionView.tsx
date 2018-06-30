@@ -4,7 +4,6 @@ import { Button, message } from "antd";
 interface Props {
   currentStep: number;
   steps: number[];
-  next: () => void;
   prev?: () => void;
 }
 
@@ -14,7 +13,7 @@ export class StepActionView extends React.PureComponent<Props> {
   }
 
   render() {
-    const { currentStep, steps, next, prev } = this.props;
+    const { currentStep, steps, prev } = this.props;
 
     return (
       <React.Fragment>
@@ -22,13 +21,6 @@ export class StepActionView extends React.PureComponent<Props> {
         currentStep > 1 && (
           <Button className="btn-prev" onClick={prev}>
             Previous
-          </Button>
-        )}
-
-        {// tslint:disable-next-line:jsx-no-multiline-js
-        currentStep < steps.length && (
-          <Button type="primary" className="btn-next" onClick={next}>
-            Next
           </Button>
         )}
 

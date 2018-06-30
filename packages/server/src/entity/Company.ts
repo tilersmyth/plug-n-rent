@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 
 import { Team } from "./Team";
+import { Location } from "./Location";
 
 @Entity("companies")
 export class Company extends BaseEntity {
@@ -20,4 +21,7 @@ export class Company extends BaseEntity {
 
   @OneToMany(() => Team, team => team.company)
   teams: Team[];
+
+  @OneToMany(() => Location, location => location.company)
+  locations: Location[];
 }

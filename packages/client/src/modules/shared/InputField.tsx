@@ -4,15 +4,22 @@ import { Form, Input } from "antd";
 
 const FormItem = Form.Item;
 
-export const InputField: React.SFC<FieldProps<any> & {}> = ({
-  field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+export const InputField: React.SFC<FieldProps<any> & any> = ({
+  field,
+  form: { touched, errors },
   ...props
 }) => {
   const errorMsg = touched[field.name] && errors[field.name];
+  const { label, ...rest } = props;
+
   return (
-    <FormItem help={errorMsg} validateStatus={errorMsg ? "error" : undefined}>
-      <Input {...field} {...props} />
+    <FormItem
+      label={label}
+      colon={false}
+      help={errorMsg}
+      validateStatus={errorMsg ? "error" : undefined}
+    >
+      <Input {...field} {...rest} />
     </FormItem>
   );
 };

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@plugnrent/common": "1.0.0",
+    "@plugnrent/controller": "1.0.0",
     "antd": "^3.6.2",
     "apollo-cache-inmemory": "^1.2.4",
     "apollo-client": "^2.3.4",
@@ -15,15 +17,16 @@
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "2.16.0",
-    "yup": "^0.25.1",
-    "@plugnrent/common": "1.0.0",
-    "@plugnrent/controller": "1.0.0"
+    "yup": "^0.25.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "introspect": "apollo-codegen introspect-schema http://localhost:4000 --output schema.json",
+    "generate": "apollo-codegen generate src/**/**/**/*.tsx --schema schema.json --target ts --output src/operation-result-types.ts",
+    "gen-types": "npm run introspect && npm run generate"
   },
   "devDependencies": {
     "@types/jest": "^23.1.0",
@@ -32,6 +35,7 @@
     "@types/react-dom": "^16.0.6",
     "@types/react-router-dom": "^4.2.7",
     "@types/yup": "^0.24.7",
+    "apollo-codegen": "^0.20.1",
     "typescript": "^2.9.2"
   }
 }

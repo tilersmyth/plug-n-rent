@@ -1,0 +1,7 @@
+type Location {
+  id: ID
+  name: String
+  slug: String
+  company: Company
+  address: Address
+}

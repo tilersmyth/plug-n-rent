@@ -1,0 +1,9 @@
+type Address {
+  id: ID!
+  address: String!
+  address2: String!
+  city: String!
+  state: String!
+  postalCode: String!
+  phone: String!
+}
