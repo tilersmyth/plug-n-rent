@@ -18,7 +18,7 @@ export const resolvers: ResolverMap = {
             errors: [
               {
                 path: "location",
-                message: "unable to update locaiton values"
+                message: "unable to update location values"
               }
             ]
           };

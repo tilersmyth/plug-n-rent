@@ -1,9 +1,11 @@
 type Address {
-  id: ID!
+  id: String
   address: String!
-  address2: String!
+  address2: String
   city: String!
   state: String!
   postalCode: String!
+  lat: Float!
+  lng: Float!
   phone: String!
 }

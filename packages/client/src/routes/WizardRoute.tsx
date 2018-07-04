@@ -65,6 +65,14 @@ const wizardQuery = gql`
         }
         address {
           id
+          address
+          address2
+          city
+          state
+          postalCode
+          lat
+          lng
+          phone
         }
       }
     }

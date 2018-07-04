@@ -10,3 +10,11 @@ export const validLocationSchema = yup.object().shape({
     .max(255)
     .required(nicknameRequired)
 });
+
+export const validAddressSchema = yup.object().shape({
+  address: yup.string().required(),
+  city: yup.string().required(),
+  state: yup.string().required(),
+  postalCode: yup.string().required(),
+  phone: yup.string().required()
+});

@@ -10,6 +10,7 @@ import { Step3Controller } from "./controller/Step3Controller";
 import { Step3View } from "./view/Step3View";
 import { StepTitleView } from "./view/StepTitleView";
 import { LocationType } from "./wizardTypes";
+import { mapAddress } from "./addressUtil";
 
 import "./style.css";
 
@@ -30,20 +31,47 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
         id: "",
         name: ""
       },
-      address: {
-        id: "",
-        name: ""
-      }
+      address: {}
+    },
+    tempAddress: {
+      address: "",
+      address2: "",
+      city: "",
+      state: "",
+      lat: "",
+      lng: "",
+      postalCode: ""
     }
   };
 
   componentDidMount() {
-    const { currentStep } = this.props;
-    this.setState({ current: currentStep });
+    const { currentStep, Location } = this.props;
+
+    const tempAddress = Location.address ? Location.address : {};
+
+    this.setState({ current: currentStep, tempAddress });
   }
+
+  setAddress = (address: any, coords: any) => {
+    const formattedAddress = mapAddress(address);
+
+    this.setState({
+      tempAddress: {
+        ...formattedAddress,
+        ...coords
+      }
+    });
+  };
 
   setLocaton = (values: Location) => {
     this.setState({ location: values });
+  };
+
+  resetAddress = (e: any) => {
+    e.stopPropagation();
+    this.setState({
+      tempAddress: {}
+    });
   };
 
   next = () => {
@@ -56,8 +84,7 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
   };
 
   render() {
-    const { current } = this.state;
-
+    const { current, tempAddress } = this.state;
     const { Location } = this.props;
 
     return (
@@ -74,8 +101,19 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
             />
           )}
         </Step1Controller>
-        <Step2Controller currentStep={current}>
-          <Step2View steps={steps} prev={this.prev} />
+        <Step2Controller currentStep={current} nextStep={this.next}>
+          {// tslint:disable-next-line:jsx-no-multiline-js
+          ({ submit }) => (
+            <Step2View
+              Location={Location}
+              setAddress={this.setAddress}
+              tempAddress={tempAddress}
+              resetAddress={this.resetAddress}
+              steps={steps}
+              prev={this.prev}
+              submit={submit}
+            />
+          )}
         </Step2Controller>
         <Step3Controller currentStep={current}>
           <Step3View steps={steps} prev={this.prev} />

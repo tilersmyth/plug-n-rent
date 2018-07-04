@@ -14,5 +14,9 @@ export class Address extends BaseEntity {
 
   @Column("text") postalCode: string;
 
+  @Column("text") lat: string;
+
+  @Column("text") lng: string;
+
   @Column("text") phone: string;
 }

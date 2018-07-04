@@ -27,3 +27,29 @@ export interface LocationMutationMutation {
     } > | null,
   },
 };
+
+export interface AddressMutationMutationVariables {
+  locationId: string,
+  id?: string | null,
+  address: string,
+  address2?: string | null,
+  city: string,
+  state: string,
+  postalCode: string,
+  lat: number,
+  lng: number,
+  phone: string,
+};
+
+export interface AddressMutationMutation {
+  createAddress:  {
+    ok: boolean,
+    address:  {
+      id: string | null,
+    } | null,
+    errors:  Array< {
+      path: string,
+      message: string,
+    } > | null,
+  },
+};

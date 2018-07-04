@@ -39,3 +39,23 @@
 .title_subtext {
   color: #999999;
 }
+
+.address-container {
+  margin-top: 30px;
+}
+
+.address-container input.readonly {
+  background-color: #f5f5f5;
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.address-container input.readonly:hover,
+.address-container input.readonly:focus {
+  border: 1px solid #d9d9d9;
+  box-shadow: none;
+  cursor: default;
+}
+
+.address-container .address-label {
+  color: rgba(0, 0, 0, 0.85);
+}
