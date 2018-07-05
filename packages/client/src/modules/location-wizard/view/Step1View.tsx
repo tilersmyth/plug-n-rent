@@ -72,8 +72,8 @@ class C extends React.PureComponent<
 export const Step1View = withFormik<Props, LocationMutationMutationVariables>({
   validationSchema: validLocationSchema,
   mapPropsToValues: ({ Location }) => ({
-    locationId: Location.id ? Location.id : "",
-    name: Location.id ? Location.name : "",
+    locationId: Location.id,
+    name: Location.name || "",
     companyId: Location.company.id
   }),
   handleSubmit: async (values, { props, setErrors }) => {

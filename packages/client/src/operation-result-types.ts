@@ -46,6 +46,14 @@ export interface AddressMutationMutation {
     ok: boolean,
     address:  {
       id: string | null,
+      address: string,
+      address2: string | null,
+      city: string,
+      state: string,
+      postalCode: string,
+      lat: number,
+      lng: number,
+      phone: string,
     } | null,
     errors:  Array< {
       path: string,

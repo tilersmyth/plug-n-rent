@@ -10,6 +10,7 @@ import {
 interface Props {
   currentStep: number;
   nextStep: () => void;
+  update: (address: any) => void;
   children: (
     data: {
       submit: (values: AddressMutationMutationVariables) => Promise<null>;
@@ -29,10 +30,11 @@ class C extends React.PureComponent<
       variables: values
     });
 
-    const { data } = response;
+    const {
+      data: { createAddress }
+    } = response;
 
-    console.log(data);
-
+    this.props.update(createAddress.address);
     this.props.nextStep();
 
     return null;
@@ -74,6 +76,14 @@ const addressMutation = gql`
       ok
       address {
         id
+        address
+        address2
+        city
+        state
+        postalCode
+        lat
+        lng
+        phone
       }
       errors {
         path

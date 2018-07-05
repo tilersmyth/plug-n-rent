@@ -58,16 +58,24 @@ class C extends React.PureComponent<FormikProps<any> & Props> {
                 <Field
                   className="readonly"
                   name="address"
+                  readOnly={true}
+                  autoComplete="off"
                   size="large"
                   component={InputField}
                 />
-                <Field name="address2" size="large" component={InputField} />
+                <Field
+                  name="address2"
+                  autoComplete="off"
+                  size="large"
+                  component={InputField}
+                />
                 <Row gutter={16}>
                   <Col lg={10} md={24}>
                     <Field
                       className="readonly"
                       name="city"
                       readOnly={true}
+                      autoComplete="off"
                       size="large"
                       component={InputField}
                     />
@@ -78,6 +86,7 @@ class C extends React.PureComponent<FormikProps<any> & Props> {
                       className="readonly"
                       name="state"
                       readOnly={true}
+                      autoComplete="off"
                       size="large"
                       component={InputField}
                     />
@@ -88,6 +97,7 @@ class C extends React.PureComponent<FormikProps<any> & Props> {
                       className="readonly"
                       name="postalCode"
                       readOnly={true}
+                      autoComplete="off"
                       size="large"
                       component={InputField}
                     />
@@ -104,6 +114,7 @@ class C extends React.PureComponent<FormikProps<any> & Props> {
               size="large"
               placeholder="(555) 555-5555"
               component={InputField}
+              autoComplete="off"
             />
           </Card>
           <div className="steps-action">
@@ -126,7 +137,7 @@ export const Step2View = withFormik<Props, any>({
     return {
       locationId: Location.id,
       ...tempAddress,
-      phone: Location.address ? Location.address.phone : tempAddress.phone
+      phone: Location.address ? Location.address.phone : ""
     };
   },
   handleSubmit: async (values, { props, setErrors }) => {

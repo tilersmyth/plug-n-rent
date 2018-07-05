@@ -7,25 +7,12 @@ export const resolvers: ResolverMap = {
     createLocation: async (_, args: any) => {
       const { locationId, name, companyId } = args;
 
-      if (locationId) {
-        const existingLocation = await Location.findOne({
-          where: { id: locationId, companyId }
-        });
+      const existingLocation = await Location.findOne({
+        where: { id: locationId, companyId }
+      });
 
-        if (!existingLocation) {
-          return {
-            ok: false,
-            errors: [
-              {
-                path: "location",
-                message: "unable to update location values"
-              }
-            ]
-          };
-        }
-
+      if (existingLocation) {
         existingLocation.name = name;
-
         const updatedLocation = await existingLocation.save();
 
         return {
@@ -51,6 +38,7 @@ export const resolvers: ResolverMap = {
       }
 
       const location = Location.create({
+        id: locationId,
         name,
         company
       });

@@ -1,6 +1,4 @@
 import * as React from "react";
-// import { graphql, ChildDataProps } from "react-apollo";
-// import gql from "graphql-tag";
 
 import { Step1Controller } from "./controller/Step1Controller";
 import { Step1View } from "./view/Step1View";
@@ -40,7 +38,8 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
       state: "",
       lat: "",
       lng: "",
-      postalCode: ""
+      postalCode: "",
+      phone: ""
     }
   };
 
@@ -65,6 +64,10 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
 
   setLocaton = (values: Location) => {
     this.setState({ location: values });
+  };
+
+  updateAddress = (value: any) => {
+    this.setState({ location: { ...this.state.location, address: value } });
   };
 
   resetAddress = (e: any) => {
@@ -101,7 +104,11 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
             />
           )}
         </Step1Controller>
-        <Step2Controller currentStep={current} nextStep={this.next}>
+        <Step2Controller
+          currentStep={current}
+          nextStep={this.next}
+          update={this.updateAddress}
+        >
           {// tslint:disable-next-line:jsx-no-multiline-js
           ({ submit }) => (
             <Step2View

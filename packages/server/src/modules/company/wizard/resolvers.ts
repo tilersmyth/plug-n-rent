@@ -1,3 +1,6 @@
+import * as uuidv4 from "uuid/v4";
+import * as validate from "uuid-validate";
+
 import { ResolverMap } from "../../../types/graphql-utils";
 import { Company } from "../../../entity/Company";
 import { Location } from "../../../entity/Location";
@@ -7,12 +10,12 @@ export const resolvers: ResolverMap = {
     verifyWizard: async (_, args: any) => {
       const { companyId, locationId } = args;
 
-      if (!locationId) {
-        const company = await Company.findOne({ where: { id: companyId } });
+      const company = await Company.findOne({ where: { id: companyId } });
 
+      if (!locationId) {
         return {
           location: {
-            id: "",
+            id: uuidv4(),
             name: "",
             company
           }
@@ -23,6 +26,16 @@ export const resolvers: ResolverMap = {
         where: { id: locationId, companyId },
         relations: ["company", "address"]
       });
+
+      if (!location && validate(locationId)) {
+        return {
+          location: {
+            id: locationId,
+            name: "",
+            company
+          }
+        };
+      }
 
       return {
         location

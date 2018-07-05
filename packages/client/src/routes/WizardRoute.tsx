@@ -25,6 +25,9 @@ interface Props {
 const WizardRouteComponent: React.SFC<ChildDataProps<any, any> & Props> = ({
   component: Component,
   data: { loading, verifyWizard },
+  computedMatch: {
+    params: { locationId }
+  },
   ...rest
 }) => {
   if (loading) {
@@ -37,7 +40,15 @@ const WizardRouteComponent: React.SFC<ChildDataProps<any, any> & Props> = ({
 
   const { location } = verifyWizard;
 
-  const currentStep = location.id ? (location.address ? 3 : 2) : 1;
+  if (location && !locationId) {
+    return (
+      <Redirect
+        to={`/company/${location.company.id}/new-location/${location.id}`}
+      />
+    );
+  }
+
+  const currentStep = location.name ? (location.address ? 3 : 2) : 1;
 
   return (
     <Route
