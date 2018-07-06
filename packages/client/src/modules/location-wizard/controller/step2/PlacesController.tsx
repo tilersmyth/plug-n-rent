@@ -1,19 +1,23 @@
 import * as React from "react";
+import { AddressSuggestions } from "../../wizardTypes";
 
 interface State {
   gmapsLoaded: boolean;
-  suggestions: any;
+  suggestions: AddressSuggestions[];
   loading: boolean;
 }
 
 interface Props {
   onChange: (values: string) => void;
-  onSelect: (address: any, coords: any) => void;
+  onSelect: (
+    address: google.maps.GeocoderAddressComponent,
+    coords: google.maps.LatLng | {}
+  ) => void;
   children: (
     data: {
       onChange: (values: string) => void;
-      onSelect: (values: any) => void;
-      suggestions: any;
+      onSelect: (values: string) => void;
+      suggestions: AddressSuggestions[];
       loading: boolean;
     }
   ) => JSX.Element | null;
@@ -34,10 +38,10 @@ export class PlacesController extends React.PureComponent<Props, State> {
   };
 
   private mounted: boolean = false;
-  private autocompleteService: any;
-  private autocompleteOK: any;
-  private geocoder: any;
-  private geocoderOK: any;
+  private autocompleteService: google.maps.places.AutocompleteService;
+  private autocompleteOK: google.maps.places.PlacesServiceStatus;
+  private geocoder: google.maps.Geocoder;
+  private geocoderOK: google.maps.GeocoderStatus;
 
   initMap = () => {
     this.setState({
@@ -72,7 +76,10 @@ export class PlacesController extends React.PureComponent<Props, State> {
     body.insertAdjacentElement(`beforeend`, gmapScriptEl);
   }
 
-  autoCompleteCallback = (predictions: any, status: any) => {
+  autoCompleteCallback = (
+    predictions: google.maps.places.AutocompletePrediction[],
+    status: google.maps.places.PlacesServiceStatus
+  ) => {
     if (!this.mounted) {
       return;
     }
@@ -83,17 +90,18 @@ export class PlacesController extends React.PureComponent<Props, State> {
     }
 
     this.setState({
-      suggestions: predictions.map((p: any, idx: any) => {
-        return {
-          id: p.id,
-          description: p.description,
-          placeId: p.place_id,
-          index: idx,
-          matchedSubstrings: p.matched_substrings,
-          terms: p.terms,
-          types: p.types
-        };
-      })
+      suggestions: predictions.map(
+        (p: google.maps.places.AutocompletePrediction, idx: number) => {
+          return {
+            description: p.description,
+            placeId: p.place_id,
+            index: idx,
+            matchedSubstrings: p.matched_substrings,
+            terms: p.terms,
+            types: p.types
+          };
+        }
+      )
     });
   };
 
@@ -113,23 +121,29 @@ export class PlacesController extends React.PureComponent<Props, State> {
     this.setState({ suggestions: [] });
   };
 
-  geocodeAddress = (address: any) => {
+  geocodeAddress = (address: string) => {
     return new Promise((resolve, reject) => {
-      this.geocoder.geocode({ address }, (results: any, status: any) => {
-        if (status !== this.geocoderOK) {
-          reject(status);
+      this.geocoder.geocode(
+        { address },
+        (
+          results: google.maps.GeocoderResult[],
+          status: google.maps.GeocoderStatus
+        ) => {
+          if (status !== this.geocoderOK) {
+            reject(status);
+          }
+          resolve(results);
         }
-        resolve(results);
-      });
+      );
     });
   };
 
-  getLatLng = (result: any) => {
+  getLatLng = (address: google.maps.Geocoder | {}) => {
     return new Promise((resolve, reject) => {
       try {
         const latLng = {
-          lat: result.geometry.location.lat(),
-          lng: result.geometry.location.lng()
+          lat: address[0].geometry.location.lat(),
+          lng: address[0].geometry.location.lng()
         };
         resolve(latLng);
       } catch (e) {
@@ -148,8 +162,8 @@ export class PlacesController extends React.PureComponent<Props, State> {
 
     const address = await this.geocodeAddress(value);
     if (address) {
-      const coords = await this.getLatLng(address[0]);
-      this.props.onSelect(address, coords);
+      const coords = await this.getLatLng(address);
+      this.props.onSelect(address[0].address_components, coords);
     }
   };
 

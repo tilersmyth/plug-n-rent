@@ -6,7 +6,7 @@ type CreateAddressResponse {
 
 type Mutation {
   createAddress(
-    locationId: String!
+    locationId: String
     id: String
     address: String!
     address2: String

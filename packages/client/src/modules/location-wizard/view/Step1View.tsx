@@ -9,7 +9,7 @@ import {
 } from "formik";
 
 import { StepActionView } from "./StepActionView";
-import { SelectCompany } from "../components/SelectCompany";
+import { SelectCompany } from "../controller/step1/SelectCompany";
 import { validLocationSchema } from "../wizardSchemas";
 import { InputField } from "../../shared/InputField";
 

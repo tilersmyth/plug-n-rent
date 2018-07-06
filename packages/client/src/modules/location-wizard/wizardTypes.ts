@@ -3,7 +3,7 @@ interface Company {
   name: string;
 }
 
-export interface AddressType {
+interface AddressType {
   id?: string;
   address: string;
   address2?: string;
@@ -20,4 +20,14 @@ export interface LocationType {
   name: string;
   company: Company;
   address: AddressType;
+}
+
+export interface AddressSuggestions {
+  id?: string;
+  description: string;
+  placeId: string;
+  index: number;
+  matchedSubstrings: google.maps.places.PredictionSubstring[];
+  terms: google.maps.places.PredictionTerm[];
+  types: string[];
 }

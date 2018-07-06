@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import {
   AddressMutationMutation,
   AddressMutationMutationVariables
-} from "../../../operation-result-types";
+} from "../../../../operation-result-types";
 
 interface Props {
   currentStep: number;
@@ -50,7 +50,7 @@ class C extends React.PureComponent<
 
 const addressMutation = gql`
   mutation AddressMutation(
-    $locationId: String!
+    $locationId: String
     $id: String
     $address: String!
     $address2: String

@@ -6,7 +6,9 @@ const addressObj = {
   postalCode: ""
 };
 
-export const mapAddress = (components: any) => {
+export const mapAddress = (
+  components: google.maps.GeocoderAddressComponent[]
+) => {
   for (const component of components) {
     // Street address
     if (component.types[0] === "street_number") {

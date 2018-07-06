@@ -2,8 +2,16 @@ import * as React from "react";
 import { AutoComplete, Spin } from "antd";
 const Option = AutoComplete.Option;
 import { PlacesController } from "./PlacesController";
+import { AddressSuggestions } from "../../wizardTypes";
 
-export class AddressController extends React.PureComponent<any, any> {
+interface Props {
+  setAddress: (
+    addressComponents: google.maps.GeocoderAddressComponent,
+    coords: google.maps.LatLng
+  ) => void;
+}
+
+export class AddressController extends React.PureComponent<Props> {
   state = {
     address: ""
   };
@@ -12,15 +20,16 @@ export class AddressController extends React.PureComponent<any, any> {
     this.setState({ address });
   };
 
-  handleSelect = (address: any, coords: any) => {
-    if (address) {
-      this.props.setAddress(address[0].address_components, coords);
-    }
+  handleSelect = (
+    addressComponents: google.maps.GeocoderAddressComponent,
+    coords: google.maps.LatLng
+  ) => {
+    this.props.setAddress(addressComponents, coords);
   };
 
   render() {
-    const renderSuggestions = (suggestions: any) =>
-      suggestions.map((suggestion: any) => {
+    const renderSuggestions = (suggestions: AddressSuggestions[]) =>
+      suggestions.map((suggestion: AddressSuggestions) => {
         return (
           <Option key={suggestion.description}>{suggestion.description}</Option>
         );

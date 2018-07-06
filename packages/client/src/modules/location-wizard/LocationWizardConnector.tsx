@@ -1,16 +1,17 @@
 import * as React from "react";
 
-import { Step1Controller } from "./controller/Step1Controller";
+import { Step1Controller } from "./controller/step1/Step1Controller";
 import { Step1View } from "./view/Step1View";
-import { Step2Controller } from "./controller/Step2Controller";
+import { Step2Controller } from "./controller/step2/Step2Controller";
 import { Step2View } from "./view/Step2View";
-import { Step3Controller } from "./controller/Step3Controller";
+import { Step3Controller } from "./controller/step3/Step3Controller";
 import { Step3View } from "./view/Step3View";
 import { StepTitleView } from "./view/StepTitleView";
 import { LocationType } from "./wizardTypes";
-import { mapAddress } from "./addressUtil";
+import { mapAddress } from "./controller/step2/addressUtil";
 
 import "./style.css";
+import { AddressMutationMutationVariables } from "../../operation-result-types";
 
 const steps = [1, 2, 3];
 
@@ -36,8 +37,8 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
       address2: "",
       city: "",
       state: "",
-      lat: "",
-      lng: "",
+      lat: 0,
+      lng: 0,
       postalCode: "",
       phone: ""
     }
@@ -51,7 +52,10 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
     this.setState({ current: currentStep, tempAddress });
   }
 
-  setAddress = (address: any, coords: any) => {
+  setAddress = (
+    address: google.maps.GeocoderAddressComponent[],
+    coords: google.maps.LatLng
+  ) => {
     const formattedAddress = mapAddress(address);
 
     this.setState({
@@ -62,15 +66,11 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
     });
   };
 
-  setLocaton = (values: Location) => {
-    this.setState({ location: values });
-  };
-
-  updateAddress = (value: any) => {
+  updateAddress = (value: AddressMutationMutationVariables) => {
     this.setState({ location: { ...this.state.location, address: value } });
   };
 
-  resetAddress = (e: any) => {
+  resetAddress = (e: React.SyntheticEvent) => {
     e.stopPropagation();
     this.setState({
       tempAddress: {}

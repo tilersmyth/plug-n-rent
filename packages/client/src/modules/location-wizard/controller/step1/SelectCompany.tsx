@@ -2,7 +2,7 @@ import * as React from "react";
 import { Select } from "antd";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 const Option = Select.Option;
 
@@ -16,19 +16,17 @@ const userCompanyQuery = gql`
 `;
 
 interface Company {
-  id: string;
+  id?: string;
   name: string;
 }
 
-interface Props {
+interface Props extends RouteComponentProps<{}> {
   company: Company;
-  history: any;
 }
 
 interface Data {
   userCompanies: {
-    map: any;
-    filter: any;
+    filter: (item: Company) => [Company];
   };
 }
 
@@ -80,4 +78,4 @@ const SelectCompanyComponent: React.SFC<Props> = ({ company, history }) => (
   </LoadUserCompanies>
 );
 
-export const SelectCompany = withRouter<any>(SelectCompanyComponent);
+export const SelectCompany = withRouter<Props>(SelectCompanyComponent);

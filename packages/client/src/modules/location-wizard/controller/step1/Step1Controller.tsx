@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import {
   LocationMutationMutation,
   LocationMutationMutationVariables
-} from "../../../operation-result-types";
+} from "../../../../operation-result-types";
 
 interface Props {
   currentStep: number;

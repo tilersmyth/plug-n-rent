@@ -9,21 +9,24 @@ import {
 } from "formik";
 
 import { StepActionView } from "./StepActionView";
-import { LocationType, AddressType } from "../wizardTypes";
-import { AddressController } from "../controller/AddressController";
+import { LocationType } from "../wizardTypes";
+import { AddressController } from "../controller/step2/AddressController";
 import { InputField } from "../../shared/InputField";
 import { validAddressSchema } from "../wizardSchemas";
+import { AddressMutationMutationVariables } from "../../../operation-result-types";
 
 const FormItem = Form.Item;
 
 interface Props {
   Location: LocationType;
-  setAddress: any;
-  tempAddress: AddressType;
-  resetAddress: (e: any) => void;
+  setAddress: (address: any, coords: any) => void;
+  tempAddress: AddressMutationMutationVariables;
+  resetAddress: (e: React.SyntheticEvent) => void;
   steps: number[];
   prev?: () => void;
-  submit: (values: any) => Promise<FormikErrors<any> | null>;
+  submit: (
+    values: AddressMutationMutationVariables
+  ) => Promise<FormikErrors<any> | null>;
 }
 
 class C extends React.PureComponent<FormikProps<any> & Props> {
@@ -67,6 +70,7 @@ class C extends React.PureComponent<FormikProps<any> & Props> {
                   name="address2"
                   autoComplete="off"
                   size="large"
+                  placeholder="Street 2 (optional)"
                   component={InputField}
                 />
                 <Row gutter={16}>

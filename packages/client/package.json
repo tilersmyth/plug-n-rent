@@ -25,10 +25,11 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "introspect": "apollo-codegen introspect-schema http://localhost:4000 --output schema.json",
-    "generate": "apollo-codegen generate src/**/**/**/*.tsx --schema schema.json --target ts --output src/operation-result-types.ts",
+    "generate": "apollo-codegen generate src/**/**/**/**/*.tsx --schema schema.json --target ts --output src/operation-result-types.ts",
     "gen-types": "npm run introspect && npm run generate"
   },
   "devDependencies": {
+    "@types/googlemaps": "^3.30.10",
     "@types/jest": "^23.1.0",
     "@types/node": "^10.3.3",
     "@types/react": "^16.3.18",

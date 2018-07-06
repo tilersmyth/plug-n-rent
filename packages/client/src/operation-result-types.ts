@@ -29,7 +29,7 @@ export interface LocationMutationMutation {
 };
 
 export interface AddressMutationMutationVariables {
-  locationId: string,
+  locationId?: string | null,
   id?: string | null,
   address: string,
   address2?: string | null,
