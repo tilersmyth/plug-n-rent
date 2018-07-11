@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build:server": "lerna run build --scope={@plugnrent/common,@plugnrent/server}"
+    "build:server": "lerna run build --scope={@plugnrent/common,@plugnrent/server}",
+    "build:client": "lerna run build --scope={@plugnrent/common,@plugnrent/client}"
   },
   "workspaces": {
     "packages": [
