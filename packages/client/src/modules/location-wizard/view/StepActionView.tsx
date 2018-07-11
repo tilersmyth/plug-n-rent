@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, message } from "antd";
+import { Button } from "antd";
 
 interface Props {
   currentStep: number;
@@ -13,7 +13,7 @@ export class StepActionView extends React.PureComponent<Props> {
   }
 
   render() {
-    const { currentStep, steps, prev } = this.props;
+    const { currentStep, prev } = this.props;
 
     return (
       <React.Fragment>
@@ -21,18 +21,6 @@ export class StepActionView extends React.PureComponent<Props> {
         currentStep > 1 && (
           <Button className="btn-prev" onClick={prev}>
             Previous
-          </Button>
-        )}
-
-        {// tslint:disable-next-line:jsx-no-multiline-js
-        currentStep === steps.length && (
-          <Button
-            type="primary"
-            className="btn-next"
-            // tslint:disable-next-line:jsx-no-lambda
-            onClick={() => message.success("Processing complete!")}
-          >
-            Done
           </Button>
         )}
       </React.Fragment>

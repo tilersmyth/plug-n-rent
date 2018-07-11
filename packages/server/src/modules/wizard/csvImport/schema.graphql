@@ -1,0 +1,3 @@
+type Mutation {
+  csvImport(locationId: String!, path: String!): Boolean!
+}

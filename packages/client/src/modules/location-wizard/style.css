@@ -59,3 +59,18 @@
 .address-container .address-label {
   color: rgba(0, 0, 0, 0.85);
 }
+
+.dragger-caption {
+  display: block;
+  text-align: center;
+  margin-top: 5px;
+}
+
+h3.step3-divider {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.step3-btn.ant-btn {
+  width: 100%;
+}

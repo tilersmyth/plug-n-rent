@@ -123,7 +123,7 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
           )}
         </Step2Controller>
         <Step3Controller currentStep={current}>
-          <Step3View steps={steps} prev={this.prev} />
+          <Step3View Location={Location} steps={steps} prev={this.prev} />
         </Step3Controller>
       </div>
     );

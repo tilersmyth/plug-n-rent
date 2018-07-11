@@ -5,10 +5,13 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
-  OneToOne
+  OneToOne,
+  OneToMany
 } from "typeorm";
 import { Company } from "./Company";
 import { Address } from "./Address";
+import { Category } from "./Category/Category";
+import { Product } from "./Product";
 
 @Entity("locations")
 export class Location extends BaseEntity {
@@ -18,6 +21,12 @@ export class Location extends BaseEntity {
 
   @ManyToOne(() => Company, (company: any) => company.locations)
   company: Company;
+
+  @OneToMany(() => Category, category => category.location)
+  categories: Category[];
+
+  @OneToMany(() => Product, product => product.location)
+  products: Product[];
 
   @OneToOne(() => Address)
   @JoinColumn()
