@@ -13,7 +13,7 @@ export class StepActionView extends React.PureComponent<Props> {
   }
 
   render() {
-    const { currentStep, prev } = this.props;
+    const { currentStep, prev, steps } = this.props;
 
     return (
       <React.Fragment>
@@ -21,6 +21,16 @@ export class StepActionView extends React.PureComponent<Props> {
         currentStep > 1 && (
           <Button className="btn-prev" onClick={prev}>
             Previous
+          </Button>
+        )}
+        {// tslint:disable-next-line:jsx-no-multiline-js
+        currentStep === steps.length && (
+          <Button
+            className="btn-next"
+            // tslint:disable-next-line:jsx-no-lambda
+            onClick={() => console.log("Processing complete!")}
+          >
+            Add products later
           </Button>
         )}
       </React.Fragment>

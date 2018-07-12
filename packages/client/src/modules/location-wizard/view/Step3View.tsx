@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Card, Upload, Icon, Button } from "antd";
+import { Card, Upload, Icon, Spin, Alert } from "antd";
 import { StepActionView } from "./StepActionView";
 import { LocationType } from "../wizardTypes";
 
@@ -9,20 +9,31 @@ interface Props {
   Location: LocationType;
   steps: number[];
   prev?: () => void;
-  // submit: (values: any) => void;
+  onChange: (info: any) => void;
+  loading: boolean;
+  uploadState: {
+    error: boolean;
+    message: string | null;
+  };
 }
 
 export class Step3View extends React.PureComponent<Props> {
   render() {
-    const { steps, prev, Location } = this.props;
+    const {
+      steps,
+      prev,
+      Location,
+      onChange,
+      loading,
+      uploadState
+    } = this.props;
     const props = {
       name: "file",
       multiple: false,
+      showUploadList: false,
       action: "http://localhost:4000/csv-upload",
       data: { locationId: Location.id },
-      onChange(info: any) {
-        console.log(info);
-      }
+      onChange
     };
 
     return (
@@ -30,15 +41,17 @@ export class Step3View extends React.PureComponent<Props> {
         <Card className="steps-content">
           <h1>{`So far, so good! Now just add rental products.`}</h1>
           <Dragger {...props}>
-            <p className="ant-upload-drag-icon">
-              <Icon type="inbox" />
-            </p>
-            <p className="ant-upload-text">
-              Upload .CSV file containing product details
-            </p>
-            <p className="ant-upload-hint">
-              Click or drag file to this area to upload.
-            </p>
+            <div className="dragger-wrapper">
+              <div className="ant-upload-drag-icon">
+                {!loading ? <Icon type="table" /> : <Spin size="large" />}
+              </div>
+              <p className="ant-upload-text">
+                Upload .CSV file containing product details
+              </p>
+              <p className="ant-upload-hint">
+                Click or drag file to this area to upload
+              </p>
+            </div>
           </Dragger>
           <small className="dragger-caption">
             <a href="#">
@@ -46,10 +59,15 @@ export class Step3View extends React.PureComponent<Props> {
               requirements
             </a>
           </small>
-          <h3 className="step3-divider">OR</h3>
-          <Button size="large" className="step3-btn">
-            Add products later
-          </Button>
+
+          {// tslint:disable-next-line:jsx-no-multiline-js
+          uploadState.error && (
+            <Alert
+              message={uploadState.message}
+              type="error"
+              className="upload-error-message"
+            />
+          )}
         </Card>
         <div className="steps-action">
           <StepActionView currentStep={3} steps={steps} prev={prev} />

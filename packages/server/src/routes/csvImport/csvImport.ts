@@ -6,7 +6,10 @@ import { getConnection } from "typeorm";
 import { Product } from "../../entity/Product";
 import { Category } from "../../entity/Category/Category";
 import { CatRelationship } from "../../entity/Category/CatRelationship";
+
+// utils
 import { slugGenerator } from "../../utils/slugGenerator";
+import { csvSchema } from "./csvSchemaValidation";
 
 const insert = async (data: any, locationId: any) => {
   console.log(data);
@@ -69,7 +72,7 @@ const insert = async (data: any, locationId: any) => {
 
     await transactionalEntityManager.save(catRelationship);
 
-    return;
+    return true;
   });
 };
 
@@ -80,6 +83,13 @@ export const csvImport = async (req: Request, res: Response) => {
 
   const csvStream = csv
     .parse({ headers: true })
+    .validate(async (data: any, next: any) => {
+      const valid = await csvSchema.isValid(data);
+      if (!valid) {
+        next(new Error());
+      }
+      next(null, data);
+    })
     .on("data", async record => {
       csvStream.pause();
 
@@ -91,12 +101,10 @@ export const csvImport = async (req: Request, res: Response) => {
       csvStream.resume();
     })
     .on("end", () => {
-      console.log("Job is done!");
-      res.send("done");
+      res.send({ success: true });
     })
-    .on("error", err => {
-      console.log(err);
-      res.send("err");
+    .on("error", () => {
+      res.send({ success: false, path: "upload_error" });
     });
 
   stream.pipe(csvStream);

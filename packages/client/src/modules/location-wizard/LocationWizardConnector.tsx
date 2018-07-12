@@ -12,6 +12,7 @@ import { mapAddress } from "./controller/step2/addressUtil";
 
 import "./style.css";
 import { AddressMutationMutationVariables } from "../../operation-result-types";
+import { uploadErrors } from "./wizardUtils.ts/uploadErrors";
 
 const steps = [1, 2, 3];
 
@@ -41,6 +42,11 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
       lng: 0,
       postalCode: "",
       phone: ""
+    },
+    uploadLoading: false,
+    uploadState: {
+      error: false,
+      message: null
     }
   };
 
@@ -77,6 +83,29 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
     });
   };
 
+  uploadOnChange = (info: any) => {
+    const { status, response } = info.file;
+
+    this.setState({
+      uploadLoading: true,
+      uploadState: { error: false, message: null }
+    });
+
+    if (status === "done") {
+      const { success, path } = response;
+      const message = success ? null : uploadErrors(path);
+      console.log(response);
+
+      this.setState({
+        uploadLoading: false,
+        uploadState: {
+          error: !success,
+          message
+        }
+      });
+    }
+  };
+
   next = () => {
     const current = this.state.current + 1;
     this.setState({ current });
@@ -87,7 +116,7 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
   };
 
   render() {
-    const { current, tempAddress } = this.state;
+    const { current, tempAddress, uploadLoading, uploadState } = this.state;
     const { Location } = this.props;
 
     return (
@@ -123,7 +152,14 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
           )}
         </Step2Controller>
         <Step3Controller currentStep={current}>
-          <Step3View Location={Location} steps={steps} prev={this.prev} />
+          <Step3View
+            Location={Location}
+            steps={steps}
+            prev={this.prev}
+            onChange={this.uploadOnChange}
+            loading={uploadLoading}
+            uploadState={uploadState}
+          />
         </Step3Controller>
       </div>
     );

@@ -60,17 +60,23 @@
   color: rgba(0, 0, 0, 0.85);
 }
 
+.ant-upload-drag-icon {
+  font-size: 48px;
+  color: #40a9ff;
+  margin-bottom: 10px;
+}
+
+.dragger-wrapper {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
 .dragger-caption {
   display: block;
   text-align: center;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
-h3.step3-divider {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.step3-btn.ant-btn {
-  width: 100%;
+.ant-alert.upload-error-message {
+  margin-top: 30px;
 }
