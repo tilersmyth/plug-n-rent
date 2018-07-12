@@ -12,21 +12,19 @@ interface Props {
   // submit: (values: any) => void;
 }
 
-const props = {
-  name: "file",
-  multiple: false,
-  action: "",
-  beforeUpload() {
-    return false;
-  },
-  onChange(info: any) {
-    console.log(info);
-  }
-};
-
 export class Step3View extends React.PureComponent<Props> {
   render() {
-    const { steps, prev } = this.props;
+    const { steps, prev, Location } = this.props;
+    const props = {
+      name: "file",
+      multiple: false,
+      action: "http://localhost:4000/csv-upload",
+      data: { locationId: Location.id },
+      onChange(info: any) {
+        console.log(info);
+      }
+    };
+
     return (
       <React.Fragment>
         <Card className="steps-content">
