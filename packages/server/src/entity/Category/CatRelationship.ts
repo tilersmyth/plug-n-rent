@@ -15,8 +15,8 @@ export class CatRelationship extends BaseEntity {
   @Column("text") catOrder: number;
 
   @ManyToOne(() => Product, (product: any) => product.catRelationships)
-  products: Product;
+  product: Product;
 
   @ManyToOne(() => Category, (category: any) => category.catRelationships)
-  categories: Category;
+  category: Category;
 }

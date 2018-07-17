@@ -4,10 +4,13 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   OneToMany,
-  ManyToOne
+  ManyToOne,
+  ManyToMany,
+  JoinTable
 } from "typeorm";
 import { CatRelationship } from "./Category/CatRelationship";
 import { Location } from "./Location";
+import { Pricing } from "./Pricing";
 
 @Entity("products")
 export class Product extends BaseEntity {
@@ -20,9 +23,13 @@ export class Product extends BaseEntity {
   @Column({ nullable: true })
   importId: string;
 
+  @ManyToMany(() => Pricing)
+  @JoinTable({ name: "product_pricing" })
+  pricings: Pricing[];
+
   @ManyToOne(() => Location, (location: any) => location.products)
   location: Location;
 
-  @OneToMany(() => CatRelationship, catRelationship => catRelationship.products)
-  catRelationship: CatRelationship[];
+  @OneToMany(() => CatRelationship, catRelationship => catRelationship.product)
+  catRelationships: CatRelationship[];
 }

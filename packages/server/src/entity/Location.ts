@@ -12,6 +12,7 @@ import { Company } from "./Company";
 import { Address } from "./Address";
 import { Category } from "./Category/Category";
 import { Product } from "./Product";
+import { Pricing } from "./Pricing";
 
 @Entity("locations")
 export class Location extends BaseEntity {
@@ -27,6 +28,9 @@ export class Location extends BaseEntity {
 
   @OneToMany(() => Product, product => product.location)
   products: Product[];
+
+  @OneToMany(() => Pricing, pricing => pricing.location)
+  pricings: Pricing[];
 
   @OneToOne(() => Address)
   @JoinColumn()

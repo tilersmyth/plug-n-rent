@@ -13,14 +13,17 @@ import { Location } from "../Location";
 export class Category extends BaseEntity {
   @PrimaryGeneratedColumn("uuid") id: string;
 
-  @Column("text") name: string;
+  @Column() name: string;
 
-  @Column("text") slug: string;
+  @Column() slug: string;
 
-  @Column("text") taxonomy: string;
+  @Column() taxonomy: string;
 
   @Column({ nullable: true })
   description: string;
+
+  @Column({ default: 0 })
+  count: number;
 
   @ManyToOne(() => Category, category => category.children)
   parent: Category;
@@ -31,9 +34,6 @@ export class Category extends BaseEntity {
   @ManyToOne(() => Location, (location: any) => location.products)
   location: Location;
 
-  @OneToMany(
-    () => CatRelationship,
-    catRelationship => catRelationship.categories
-  )
+  @OneToMany(() => CatRelationship, catRelationship => catRelationship.category)
   catRelationship: CatRelationship[];
 }

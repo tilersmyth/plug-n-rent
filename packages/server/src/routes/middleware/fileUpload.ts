@@ -30,6 +30,7 @@ export const fileUpload = async (
   blobStream.on("finish", async () => {
     await blob.makePublic();
     req.file.path = publicUrl(gcsname);
+    req.file.originalname = gcsname;
     next();
   });
 
