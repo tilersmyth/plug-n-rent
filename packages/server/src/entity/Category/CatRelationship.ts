@@ -8,7 +8,7 @@ import {
 import { Product } from "../Product";
 import { Category } from "./Category";
 
-@Entity("catRelationships")
+@Entity("cat_relationships")
 export class CatRelationship extends BaseEntity {
   @PrimaryGeneratedColumn("uuid") id: string;
 

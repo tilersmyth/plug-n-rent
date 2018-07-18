@@ -6,8 +6,8 @@ import {
   OneToMany,
   ManyToOne
 } from "typeorm";
-import { CatRelationship } from "./CatRelationship";
 import { Location } from "../Location";
+import { CatRelationship } from "./CatRelationship";
 
 @Entity("categories")
 export class Category extends BaseEntity {

@@ -5,9 +5,9 @@ import { getConnection } from "typeorm";
 
 // tables
 import { insertProduct } from "./tables/product";
+import { insertPricing } from "./tables/pricing";
 import { insertCategory } from "./tables/category";
 import { insertCatRelationship } from "./tables/catRelationship";
-import { insertPricing } from "./tables/pricing";
 
 // utils
 import { csvSchema } from "./utils/csvSchemaValidation";
@@ -32,15 +32,16 @@ const insert = async (data: any, locationId: any) => {
 
     if (category) {
       category = await transactionalEntityManager.save(category);
+      const catRelationship = insertCatRelationship(productSaved, category);
+      await transactionalEntityManager.save(catRelationship);
     }
 
     const productType = await insertCategory(data, locationId, category);
     if (productType) {
       await transactionalEntityManager.save(productType);
+      const catRelationship = insertCatRelationship(productSaved, productType);
+      await transactionalEntityManager.save(catRelationship);
     }
-
-    const catRelationship = insertCatRelationship(productSaved, category);
-    await transactionalEntityManager.save(catRelationship);
 
     return true;
   });

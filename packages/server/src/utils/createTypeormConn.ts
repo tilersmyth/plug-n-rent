@@ -9,6 +9,8 @@ import { Pricing } from "../entity/Pricing";
 import { Product } from "../entity/Product";
 import { Team } from "../entity/Team";
 
+import { CatSubscriber } from "../entity/Category/CatSubscriber";
+
 export const createTypeormConn = async () => {
   const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
   return process.env.NODE_ENV === "production"
@@ -30,6 +32,7 @@ export const createTypeormConn = async () => {
       } as any)
     : createConnection({
         ...connectionOptions,
-        name: "default"
+        name: "default",
+        subscribers: [CatSubscriber]
       });
 };

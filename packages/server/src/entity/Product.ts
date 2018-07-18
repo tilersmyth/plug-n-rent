@@ -3,14 +3,14 @@ import {
   Column,
   BaseEntity,
   PrimaryGeneratedColumn,
-  OneToMany,
   ManyToOne,
   ManyToMany,
-  JoinTable
+  JoinTable,
+  OneToMany
 } from "typeorm";
-import { CatRelationship } from "./Category/CatRelationship";
 import { Location } from "./Location";
 import { Pricing } from "./Pricing";
+import { CatRelationship } from "./Category/CatRelationship";
 
 @Entity("products")
 export class Product extends BaseEntity {
