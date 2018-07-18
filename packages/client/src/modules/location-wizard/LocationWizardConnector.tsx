@@ -11,7 +11,7 @@ import { LocationType } from "./wizardTypes";
 import { mapAddress } from "./controller/step2/addressUtil";
 
 import "./style.css";
-import { AddressMutationMutationVariables } from "../../operation-result-types";
+import { AddressMutationVariables } from "../../schemaTypes";
 import { uploadErrors } from "./wizardUtils.ts/uploadErrors";
 
 const steps = [1, 2, 3];
@@ -72,7 +72,7 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
     });
   };
 
-  updateAddress = (value: AddressMutationMutationVariables) => {
+  updateAddress = (value: AddressMutationVariables) => {
     this.setState({ location: { ...this.state.location, address: value } });
   };
 
@@ -123,8 +123,7 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
       <div className="steps-container">
         <StepTitleView currentStep={current} steps={steps} />
         <Step1Controller currentStep={current} nextStep={this.next}>
-          {// tslint:disable-next-line:jsx-no-multiline-js
-          ({ submit }) => (
+          {({ submit }) => (
             <Step1View
               Location={Location}
               steps={steps}
@@ -138,8 +137,7 @@ export class LocationWizardConnector extends React.PureComponent<Props> {
           nextStep={this.next}
           update={this.updateAddress}
         >
-          {// tslint:disable-next-line:jsx-no-multiline-js
-          ({ submit }) => (
+          {({ submit }) => (
             <Step2View
               Location={Location}
               setAddress={this.setAddress}

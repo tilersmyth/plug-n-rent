@@ -13,19 +13,19 @@ import { LocationType } from "../wizardTypes";
 import { AddressController } from "../controller/step2/AddressController";
 import { InputField } from "../../shared/InputField";
 import { validAddressSchema } from "../wizardSchemas";
-import { AddressMutationMutationVariables } from "../../../operation-result-types";
+import { AddressMutationVariables } from "../../../schemaTypes";
 
 const FormItem = Form.Item;
 
 interface Props {
   Location: LocationType;
   setAddress: (address: any, coords: any) => void;
-  tempAddress: AddressMutationMutationVariables;
+  tempAddress: AddressMutationVariables;
   resetAddress: (e: React.SyntheticEvent) => void;
   steps: number[];
   prev?: () => void;
   submit: (
-    values: AddressMutationMutationVariables
+    values: AddressMutationVariables
   ) => Promise<FormikErrors<any> | null>;
 }
 
@@ -46,8 +46,7 @@ class C extends React.PureComponent<FormikProps<any> & Props> {
           <Card className="steps-content">
             <h1>{`Now, enter location details for ${Location.name}`}</h1>
 
-            {// tslint:disable-next-line:jsx-no-multiline-js
-            !tempAddress.address ? (
+            {!tempAddress.address ? (
               <FormItem label="Location address" colon={false}>
                 <AddressController setAddress={setAddress} />
               </FormItem>

@@ -2,28 +2,24 @@ import * as React from "react";
 import { graphql, ChildMutateProps } from "react-apollo";
 import gql from "graphql-tag";
 import {
-  LocationMutationMutation,
-  LocationMutationMutationVariables
-} from "../../../../operation-result-types";
+  LocationMutation,
+  LocationMutationVariables
+} from "../../../../schemaTypes";
 
 interface Props {
   currentStep: number;
   nextStep: () => void;
   children: (
     data: {
-      submit: (values: LocationMutationMutationVariables) => Promise<null>;
+      submit: (values: LocationMutationVariables) => Promise<null>;
     }
   ) => JSX.Element | null;
 }
 
 class C extends React.PureComponent<
-  ChildMutateProps<
-    Props,
-    LocationMutationMutation,
-    LocationMutationMutationVariables
-  >
+  ChildMutateProps<Props, LocationMutation, LocationMutationVariables>
 > {
-  submit = async (values: LocationMutationMutationVariables) => {
+  submit = async (values: LocationMutationVariables) => {
     const response = await this.props.mutate({
       variables: values
     });
@@ -70,6 +66,6 @@ const locationMutation = gql`
 
 export const Step1Controller = graphql<
   Props,
-  LocationMutationMutation,
-  LocationMutationMutationVariables
+  LocationMutation,
+  LocationMutationVariables
 >(locationMutation)(C);

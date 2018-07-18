@@ -60,8 +60,7 @@ export class Step3View extends React.PureComponent<Props> {
             </a>
           </small>
 
-          {// tslint:disable-next-line:jsx-no-multiline-js
-          uploadState.error && (
+          {uploadState.error && (
             <Alert
               message={uploadState.message}
               type="error"

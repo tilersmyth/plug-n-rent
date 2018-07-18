@@ -54,7 +54,6 @@ const WizardRouteComponent: React.SFC<ChildDataProps<any, any> & Props> = ({
     <Route
       {...rest}
       render={
-        // tslint:disable-next-line:jsx-no-multiline-js
         // tslint:disable-next-line:jsx-no-lambda
         props => (
           <Component Location={location} currentStep={currentStep} {...props} />

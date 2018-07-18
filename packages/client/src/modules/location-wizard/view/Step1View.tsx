@@ -13,7 +13,7 @@ import { SelectCompany } from "../controller/step1/SelectCompany";
 import { validLocationSchema } from "../wizardSchemas";
 import { InputField } from "../../shared/InputField";
 
-import { LocationMutationMutationVariables } from "../../../operation-result-types";
+import { LocationMutationVariables } from "../../../schemaTypes";
 
 import { LocationType } from "../wizardTypes";
 
@@ -24,12 +24,12 @@ interface Props {
   steps: number[];
   prev?: () => void;
   submit: (
-    values: LocationMutationMutationVariables
-  ) => Promise<FormikErrors<LocationMutationMutationVariables> | null>;
+    values: LocationMutationVariables
+  ) => Promise<FormikErrors<LocationMutationVariables> | null>;
 }
 
 class C extends React.PureComponent<
-  FormikProps<LocationMutationMutationVariables> & Props
+  FormikProps<LocationMutationVariables> & Props
 > {
   render() {
     const { Location, steps, prev } = this.props;
@@ -69,7 +69,7 @@ class C extends React.PureComponent<
   }
 }
 
-export const Step1View = withFormik<Props, LocationMutationMutationVariables>({
+export const Step1View = withFormik<Props, LocationMutationVariables>({
   validationSchema: validLocationSchema,
   mapPropsToValues: ({ Location }) => ({
     locationId: Location.id,

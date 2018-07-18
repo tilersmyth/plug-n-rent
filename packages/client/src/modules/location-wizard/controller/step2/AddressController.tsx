@@ -41,8 +41,7 @@ export class AddressController extends React.PureComponent<Props> {
           onChange={this.handleChange}
           onSelect={this.handleSelect}
         >
-          {// tslint:disable-next-line:jsx-no-multiline-js
-          ({ onChange, onSelect, suggestions, loading }) => {
+          {({ onChange, onSelect, suggestions, loading }) => {
             return (
               <div>
                 <AutoComplete

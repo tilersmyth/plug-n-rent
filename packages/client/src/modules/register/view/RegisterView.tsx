@@ -28,10 +28,8 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
         <FForm style={{ width: 400, margin: "auto" }}>
           <Field
             name="email"
-            // tslint:disable-next-line:jsx-no-multiline-js
             prefix={
               <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} /> as any
-              // tslint:disable-next-line:jsx-curly-spacing
             }
             placeholder="E-mail"
             component={InputField}
@@ -39,10 +37,8 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
 
           <Field
             name="password"
-            // tslint:disable-next-line:jsx-no-multiline-js
             prefix={
               <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} /> as any
-              // tslint:disable-next-line:jsx-curly-spacing
             }
             type="password"
             placeholder="Password"

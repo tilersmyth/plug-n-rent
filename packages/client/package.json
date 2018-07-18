@@ -24,9 +24,9 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "introspect": "apollo-codegen introspect-schema http://localhost:4000 --output schema.json",
-    "generate": "apollo-codegen generate src/**/**/**/**/*.tsx --schema schema.json --target ts --output src/operation-result-types.ts",
-    "gen-types": "npm run introspect && npm run generate"
+    "schema:download": "apollo schema:download --endpoint=http://localhost:4000",
+    "codegen:generate": "apollo codegen:generate --queries=./src/**/*.tsx --schema=./schema.json --target=typescript --outputFlat=./src/schemaTypes.ts",
+    "gen:types": "npm run schema:download && npm run codegen:generate"
   },
   "devDependencies": {
     "@types/googlemaps": "^3.30.11",
@@ -36,6 +36,7 @@
     "@types/react-dom": "^16.0.6",
     "@types/react-router-dom": "^4.2.7",
     "@types/yup": "^0.24.7",
+    "apollo": "^1.4.0",
     "apollo-codegen": "^0.20.1",
     "typescript": "^2.9.2"
   }

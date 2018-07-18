@@ -34,8 +34,7 @@ class LoadUserCompanies extends Query<Data> {}
 
 const SelectCompanyComponent: React.SFC<Props> = ({ company, history }) => (
   <LoadUserCompanies query={userCompanyQuery}>
-    {// tslint:disable-next-line:jsx-no-multiline-js
-    ({ loading, error, data }) => {
+    {({ loading, error, data }) => {
       if (loading) {
         return "Loading...";
       }
@@ -49,7 +48,6 @@ const SelectCompanyComponent: React.SFC<Props> = ({ company, history }) => (
           size="large"
           defaultValue={company.name}
           defaultActiveFirstOption={false}
-          // tslint:disable-next-line:jsx-no-multiline-js
           onChange={
             // tslint:disable-next-line:jsx-no-lambda
             (value: string) => {
@@ -57,8 +55,7 @@ const SelectCompanyComponent: React.SFC<Props> = ({ company, history }) => (
             }
           }
         >
-          {// tslint:disable-next-line:jsx-no-multiline-js
-          data.userCompanies
+          {data.userCompanies
             .filter((item: Company) => {
               return item.id !== company.id;
             })

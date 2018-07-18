@@ -3,9 +3,9 @@ import { graphql, ChildMutateProps } from "react-apollo";
 import gql from "graphql-tag";
 
 import {
-  AddressMutationMutation,
-  AddressMutationMutationVariables
-} from "../../../../operation-result-types";
+  AddressMutation,
+  AddressMutationVariables
+} from "../../../../schemaTypes";
 
 interface Props {
   currentStep: number;
@@ -13,19 +13,15 @@ interface Props {
   update: (address: any) => void;
   children: (
     data: {
-      submit: (values: AddressMutationMutationVariables) => Promise<null>;
+      submit: (values: AddressMutationVariables) => Promise<null>;
     }
   ) => JSX.Element | null;
 }
 
 class C extends React.PureComponent<
-  ChildMutateProps<
-    Props,
-    AddressMutationMutation,
-    AddressMutationMutationVariables
-  >
+  ChildMutateProps<Props, AddressMutation, AddressMutationVariables>
 > {
-  submit = async (values: AddressMutationMutationVariables) => {
+  submit = async (values: AddressMutationVariables) => {
     const response = await this.props.mutate({
       variables: values
     });
@@ -95,6 +91,6 @@ const addressMutation = gql`
 
 export const Step2Controller = graphql<
   Props,
-  AddressMutationMutation,
-  AddressMutationMutationVariables
+  AddressMutation,
+  AddressMutationVariables
 >(addressMutation)(C);
