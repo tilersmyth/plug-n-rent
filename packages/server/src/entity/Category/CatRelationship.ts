@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { Product } from "../Product";
 import { Category } from "./Category";
+import { Location } from "../Location";
 
 @Entity("cat_relationships")
 export class CatRelationship extends BaseEntity {
@@ -19,4 +20,7 @@ export class CatRelationship extends BaseEntity {
 
   @ManyToOne(() => Category, (category: any) => category.catRelationships)
   category: Category;
+
+  @ManyToOne(() => Location, (location: any) => location.catRelationships)
+  location: Location;
 }

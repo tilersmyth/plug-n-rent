@@ -32,14 +32,22 @@ const insert = async (data: any, locationId: any) => {
 
     if (category) {
       category = await transactionalEntityManager.save(category);
-      const catRelationship = insertCatRelationship(productSaved, category);
+      const catRelationship = insertCatRelationship(
+        locationId,
+        productSaved,
+        category
+      );
       await transactionalEntityManager.save(catRelationship);
     }
 
     const productType = await insertCategory(data, locationId, category);
     if (productType) {
       await transactionalEntityManager.save(productType);
-      const catRelationship = insertCatRelationship(productSaved, productType);
+      const catRelationship = insertCatRelationship(
+        locationId,
+        productSaved,
+        productType
+      );
       await transactionalEntityManager.save(catRelationship);
     }
 
