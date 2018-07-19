@@ -1,67 +1,59 @@
 import * as React from "react";
+import { graphql, ChildProps } from "react-apollo";
+import { RouteProps, Route, RouteComponentProps, Redirect } from "react-router";
 import gql from "graphql-tag";
-import { graphql, ChildDataProps } from "react-apollo";
-import { Route, Redirect } from "react-router-dom";
 
-interface Props {
-  component: any;
-}
+import { WizardQuery } from "../schemaTypes";
 
-// interface InputProps {
-//   match: {
-//     params: {
-//       companyId: string;
-//       locationId: string;
-//     };
-//   };
-// }
+type Props = RouteProps;
 
-// interface Response {
-//   verifyWizard: {
-//     location: any;
-//   };
-// }
+class C extends React.PureComponent<ChildProps<Props, WizardQuery>> {
+  renderRoute = (routeProps: RouteComponentProps<{ locationId: string }>) => {
+    const { data, component } = this.props;
 
-const WizardRouteComponent: React.SFC<ChildDataProps<any, any> & Props> = ({
-  component: Component,
-  data: { loading, verifyWizard },
-  computedMatch: {
-    params: { locationId }
-  },
-  ...rest
-}) => {
-  if (loading) {
-    return null;
-  }
+    const {
+      match: {
+        params: { locationId }
+      }
+    } = routeProps;
 
-  if (!verifyWizard) {
-    return <Redirect to="/" />;
-  }
+    if (!data || data.loading) {
+      return null;
+    }
 
-  const { location } = verifyWizard;
+    if (!data.verifyWizard) {
+      return <Redirect to="/" />;
+    }
 
-  if (location && !locationId) {
+    const { location } = data.verifyWizard;
+
+    if (location && location.company && !locationId) {
+      return (
+        <Redirect
+          to={`/company/${location.company.id}/new-location/${location.id}`}
+        />
+      );
+    }
+
+    const currentStep =
+      location && location.name ? (location.address ? 3 : 2) : 1;
+
+    const Component = component as any;
+
     return (
-      <Redirect
-        to={`/company/${location.company.id}/new-location/${location.id}`}
+      <Component
+        {...routeProps}
+        Location={location}
+        currentStep={currentStep}
       />
     );
+  };
+
+  render() {
+    const { data: _, component: __, ...rest } = this.props;
+    return <Route {...rest} render={this.renderRoute} />;
   }
-
-  const currentStep = location.name ? (location.address ? 3 : 2) : 1;
-
-  return (
-    <Route
-      {...rest}
-      render={
-        // tslint:disable-next-line:jsx-no-lambda
-        props => (
-          <Component Location={location} currentStep={currentStep} {...props} />
-        )
-      }
-    />
-  );
-};
+}
 
 const wizardQuery = gql`
   query WizardQuery($companyId: String!, $locationId: String) {
@@ -101,4 +93,4 @@ export const WizardRoute = graphql<any>(wizardQuery, {
       variables: { companyId, locationId }
     };
   }
-})(WizardRouteComponent);
+})(C);

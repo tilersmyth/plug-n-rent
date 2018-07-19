@@ -140,7 +140,7 @@ export interface WizardQuery {
 
 export interface WizardQueryVariables {
   companyId: string;
-  locationId?: string | null;
+  locationId: string;
 }
 
 /* tslint:disable */

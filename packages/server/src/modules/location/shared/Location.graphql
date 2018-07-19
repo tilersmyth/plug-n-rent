@@ -2,6 +2,6 @@ type Location {
   id: ID
   name: String
   slug: String
-  company: Company
+  company: Company!
   address: Address
 }
