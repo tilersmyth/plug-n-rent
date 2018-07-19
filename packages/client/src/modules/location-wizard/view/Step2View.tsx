@@ -12,6 +12,7 @@ import { StepActionView } from "./StepActionView";
 import { LocationType } from "../wizardTypes";
 import { AddressController } from "../controller/step2/AddressController";
 import { InputField } from "../../shared/InputField";
+import { InputPhoneMask } from "../../shared/InputFieldMask";
 import { validAddressSchema } from "../wizardSchemas";
 import { AddressMutationVariables } from "../../../schemaTypes";
 
@@ -116,7 +117,7 @@ class C extends React.PureComponent<FormikProps<any> & Props> {
               name="phone"
               size="large"
               placeholder="(555) 555-5555"
-              component={InputField}
+              component={InputPhoneMask}
               autoComplete="off"
             />
           </Card>

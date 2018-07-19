@@ -16,5 +16,8 @@ export const validAddressSchema = yup.object().shape({
   city: yup.string().required(),
   state: yup.string().required(),
   postalCode: yup.string().required(),
-  phone: yup.string().required()
+  phone: yup
+    .string()
+    .matches(/^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/, "invalid phone number")
+    .required()
 });
