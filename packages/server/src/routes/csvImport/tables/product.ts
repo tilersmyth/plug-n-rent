@@ -3,7 +3,7 @@ import { slugGenerator } from "../../../utils/slugGenerator";
 
 export const insertProduct = async (data: any, locationId: any) => {
   const productExists = await Product.findOne({
-    where: { location: locationId, importId: data.unique_id }
+    where: { location: locationId, importId: data.import_id }
   });
 
   if (productExists) {
@@ -19,7 +19,8 @@ export const insertProduct = async (data: any, locationId: any) => {
   const product = new Product();
   product.name = data.product_name;
   product.slug = productSlug;
-  product.importId = data.index;
+  product.active = Boolean(data.product_active);
+  product.importId = data.import_id;
   product.location = locationId;
 
   return product;

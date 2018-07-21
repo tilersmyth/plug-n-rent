@@ -6,7 +6,9 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
-  OneToMany
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn
 } from "typeorm";
 import { Location } from "./Location";
 import { Pricing } from "./Pricing";
@@ -16,9 +18,11 @@ import { CatRelationship } from "./Category/CatRelationship";
 export class Product extends BaseEntity {
   @PrimaryGeneratedColumn("uuid") id: string;
 
-  @Column("text") name: string;
+  @Column() name: string;
 
-  @Column("text") slug: string;
+  @Column() slug: string;
+
+  @Column() active: boolean;
 
   @Column({ nullable: true })
   importId: string;
@@ -32,4 +36,8 @@ export class Product extends BaseEntity {
 
   @OneToMany(() => CatRelationship, catRelationship => catRelationship.product)
   catRelationships: CatRelationship[];
+
+  @CreateDateColumn() createdAt: Date;
+
+  @UpdateDateColumn() updatedAt?: Date;
 }

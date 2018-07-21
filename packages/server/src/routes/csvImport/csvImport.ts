@@ -65,6 +65,7 @@ export const csvImport = async (req: Request, res: Response) => {
     .parse({ headers: true })
     .validate(async (data: any, next: any) => {
       const valid = await csvSchema.isValid(data);
+      console.log("VALIDATE", valid);
       if (!valid) {
         next(new Error());
       }
