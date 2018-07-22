@@ -17,6 +17,14 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
+    "types": [
+      "jest",
+      "node",
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "googlemaps"
+    ],
     "skipLibCheck": true
   },
   "exclude": [

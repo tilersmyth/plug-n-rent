@@ -1,0 +1,9 @@
+type CreateProductResponse {
+  ok: Boolean!
+  location: Product
+  errors: [Error!]
+}
+
+type Mutation {
+  createProduct(name: String!): CreateProductResponse!
+}

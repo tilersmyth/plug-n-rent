@@ -9,7 +9,7 @@ import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAcco
 import { expiredKeyError } from "./errorMessages";
 import { forgotPasswordLockedError } from "../login/errorMessages";
 import { createTestConn } from "../../../testUtils/createTestConn";
-import { passwordNotLongEnough } from "@plugnrent/common";
+import { passwordNotLongEnough } from "../../../../../common/dist";
 
 let conn: Connection;
 export const redis = new Redis();
