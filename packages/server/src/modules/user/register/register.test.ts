@@ -4,7 +4,7 @@ import {
   emailNotLongEnough,
   invalidEmail,
   passwordNotLongEnough
-} from "@plugnrent/common";
+} from "../../../../../common/dist";
 import { User } from "../../../entity/User";
 import { duplicateEmail } from "./errorMessages";
 import { TestClient } from "../../../utils/TestClient";

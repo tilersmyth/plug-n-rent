@@ -7,7 +7,7 @@ import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLin
 import { User } from "../../../entity/User";
 import { userNotFoundError, expiredKeyError } from "./errorMessages";
 import { forgotPasswordPrefix } from "../../../constants";
-import { registerPasswordValidation } from "@plugnrent/common";
+import { registerPasswordValidation } from "../../../../../common/dist";
 import { formatYupError } from "../../../utils/formatYupError";
 
 // 20 minutes

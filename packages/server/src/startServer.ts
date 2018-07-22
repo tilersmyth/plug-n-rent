@@ -5,10 +5,10 @@ import * as session from "express-session";
 import * as connectRedis from "connect-redis";
 import * as RateLimit from "express-rate-limit";
 import * as RateLimitRedisStore from "rate-limit-redis";
+import * as cors from "cors";
 
 import { redis } from "./redis";
 import { createTypeormConn } from "./utils/createTypeormConn";
-import { confirmEmail } from "./routes/confirmEmail";
 import { genSchema } from "./utils/genSchema";
 import { redisSessionPrefix } from "./constants";
 import { createTestConn } from "./testUtils/createTestConn";
@@ -60,7 +60,7 @@ export const startServer = async () => {
     } as any)
   );
 
-  const cors = {
+  const corsVars = {
     credentials: true,
     origin:
       process.env.NODE_ENV === "test"
@@ -68,7 +68,8 @@ export const startServer = async () => {
         : (process.env.FRONTEND_HOST as string)
   };
 
-  server.express.get("/confirm/:id", confirmEmail);
+  server.express.use(cors(corsVars));
+  require("./routes").default(server.express);
 
   if (process.env.NODE_ENV === "test") {
     await createTestConn(true);
@@ -78,8 +79,8 @@ export const startServer = async () => {
 
   const port = process.env.PORT || 4000;
   const app = await server.start({
-    cors,
-    port: process.env.NODE_ENV === "test" ? 0 : port
+    cors: corsVars,
+    port: process.env.NODE_ENV === "test" ? 0 : 4000
   });
   console.log("Server is running on ", port);
 
