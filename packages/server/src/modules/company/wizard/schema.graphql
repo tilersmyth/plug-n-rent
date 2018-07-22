@@ -1,0 +1,7 @@
+type wizardResponse {
+  location: Location
+}
+
+type Query {
+  verifyWizard(companyId: String, locationId: String): wizardResponse!
+}

@@ -1,0 +1,13 @@
+type CreateLocationResponse {
+  ok: Boolean!
+  location: Location
+  errors: [Error!]
+}
+
+type Mutation {
+  createLocation(
+    locationId: String
+    name: String!
+    companyId: String!
+  ): CreateLocationResponse!
+}
