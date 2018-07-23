@@ -14,6 +14,7 @@ import { Category } from "./Category/Category";
 import { Product } from "./Product";
 import { Pricing } from "./Pricing";
 import { CatRelationship } from "./Category/CatRelationship";
+import { Team } from "./Team";
 
 @Entity("locations")
 export class Location extends BaseEntity {
@@ -35,6 +36,9 @@ export class Location extends BaseEntity {
 
   @OneToMany(() => CatRelationship, catRelationship => catRelationship.location)
   CatRelationships: CatRelationship[];
+
+  @OneToMany(() => Team, team => team.location)
+  teams: Team[];
 
   @OneToOne(() => Address)
   @JoinColumn()

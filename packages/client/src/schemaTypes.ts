@@ -4,6 +4,28 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: CreateCompanyMutation
+// ====================================================
+
+export interface CreateCompanyMutation_createCompany {
+  path: string;
+  message: string;
+}
+
+export interface CreateCompanyMutation {
+  createCompany: CreateCompanyMutation_createCompany[] | null;
+}
+
+export interface CreateCompanyMutationVariables {
+  name: string;
+  domain: string;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: UserCompanyQuery
 // ====================================================
 
@@ -126,7 +148,7 @@ export interface WizardQuery_verifyWizard_location_address {
 export interface WizardQuery_verifyWizard_location {
   id: string | null;
   name: string | null;
-  company: WizardQuery_verifyWizard_location_company | null;
+  company: WizardQuery_verifyWizard_location_company;
   address: WizardQuery_verifyWizard_location_address | null;
 }
 
@@ -140,7 +162,7 @@ export interface WizardQuery {
 
 export interface WizardQueryVariables {
   companyId: string;
-  locationId: string;
+  locationId?: string | null;
 }
 
 /* tslint:disable */

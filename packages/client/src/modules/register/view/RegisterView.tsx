@@ -1,18 +1,13 @@
 import * as React from "react";
-import { Form, Icon, Button } from "antd";
-import {
-  withFormik,
-  FormikErrors,
-  FormikProps,
-  Field,
-  Form as FForm
-} from "formik";
+import { Form as AntForm, Icon, Button } from "antd";
+import { withFormik, FormikErrors, FormikProps, Field, Form } from "formik";
 import { Link } from "react-router-dom";
 
 import { validUserSchema } from "@plugnrent/common";
 import { InputField } from "../../shared/InputField";
+import { AuthLayout } from "../../../components/AuthLayout";
 
-const FormItem = Form.Item;
+const FormItem = AntForm.Item;
 
 interface FormValues {
   email: string;
@@ -26,45 +21,47 @@ interface Props {
 class C extends React.PureComponent<FormikProps<FormValues> & Props> {
   render() {
     return (
-      <div style={{ display: "flex" }}>
-        <FForm style={{ width: 400, margin: "auto" }}>
-          <Field
-            name="email"
-            prefix={
-              <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} /> as any
-            }
-            placeholder="E-mail"
-            component={InputField}
-          />
+      <AuthLayout title="Register">
+        <Form style={{ display: "flex" }}>
+          <div style={{ width: 400, margin: "auto" }}>
+            <Field
+              name="email"
+              prefix={
+                <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} /> as any
+              }
+              placeholder="E-mail"
+              component={InputField}
+            />
 
-          <Field
-            name="password"
-            prefix={
-              <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} /> as any
-            }
-            type="password"
-            placeholder="Password"
-            component={InputField}
-          />
-          <FormItem>
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
-          </FormItem>
-          <FormItem>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              Register
-            </Button>
-          </FormItem>
-          <FormItem>
-            Or <Link to="/login">login now!</Link>
-          </FormItem>
-        </FForm>
-      </div>
+            <Field
+              name="password"
+              prefix={
+                <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} /> as any
+              }
+              type="password"
+              placeholder="Password"
+              component={InputField}
+            />
+            <FormItem>
+              <a className="login-form-forgot" href="">
+                Forgot password
+              </a>
+            </FormItem>
+            <FormItem>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+              >
+                Register
+              </Button>
+            </FormItem>
+            <FormItem>
+              Or <Link to="/login">login now!</Link>
+            </FormItem>
+          </div>
+        </Form>
+      </AuthLayout>
     );
   }
 }

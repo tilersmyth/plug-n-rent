@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne
 } from "typeorm";
-import { Company } from "./Company";
+import { Location } from "./Location";
 
 @Entity("teams")
 export class Team extends BaseEntity {
@@ -13,6 +13,6 @@ export class Team extends BaseEntity {
 
   @Column("text") role: string;
 
-  @ManyToOne(() => Company, (company: any) => company.teams)
-  company: Company;
+  @ManyToOne(() => Location, (location: any) => location.teams)
+  location: Location;
 }

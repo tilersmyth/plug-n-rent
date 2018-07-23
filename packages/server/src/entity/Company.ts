@@ -3,11 +3,13 @@ import {
   Column,
   BaseEntity,
   PrimaryGeneratedColumn,
-  OneToMany
+  OneToMany,
+  ManyToMany,
+  JoinTable
 } from "typeorm";
 
-import { Team } from "./Team";
 import { Location } from "./Location";
+import { User } from "./User";
 
 @Entity("companies")
 export class Company extends BaseEntity {
@@ -15,12 +17,13 @@ export class Company extends BaseEntity {
 
   @Column("text") name: string;
 
+  @Column() domain: string;
+
   @Column("text") slug: string;
 
-  @Column("text") domain: string;
-
-  @OneToMany(() => Team, team => team.company)
-  teams: Team[];
+  @ManyToMany(() => User)
+  @JoinTable({ name: "company_owners" })
+  owners: User[];
 
   @OneToMany(() => Location, location => location.company)
   locations: Location[];

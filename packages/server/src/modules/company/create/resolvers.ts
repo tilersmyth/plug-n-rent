@@ -1,11 +1,15 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { Company } from "../../../entity/Company";
-import { Team } from "../../../entity/Team";
+import { User } from "../../../entity/User";
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    createCompany: async (_, args: any) => {
-      const { name, slug, domain } = args;
+    createCompany: async (_, args: any, { session }) => {
+      const { name, domain } = args;
+
+      if (!session.userId) {
+        throw new Error("not authenticated");
+      }
 
       const domainAlreadyExists = await Company.findOne({
         where: { domain },
@@ -21,20 +25,21 @@ export const resolvers: ResolverMap = {
         ];
       }
 
+      const user = await User.findOne({ where: { id: session.userId } });
+
+      if (!user) {
+        throw new Error("user does not exist!");
+      }
+
       const company = Company.create({
         name,
-        slug,
-        domain
+        domain,
+        slug: "test.com"
       });
+
+      company.owners = [user];
 
       await company.save();
-
-      const team = Team.create({
-        role: "admin",
-        company
-      });
-
-      await team.save();
 
       return null;
     }
