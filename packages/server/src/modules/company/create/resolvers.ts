@@ -17,12 +17,14 @@ export const resolvers: ResolverMap = {
       });
 
       if (domainAlreadyExists) {
-        return [
-          {
-            path: "domain",
-            message: "an account already exists for this domain"
-          }
-        ];
+        return {
+          errors: [
+            {
+              path: "domain",
+              message: "an account already exists for this domain"
+            }
+          ]
+        };
       }
 
       const user = await User.findOne({ where: { id: session.userId } });
@@ -39,9 +41,9 @@ export const resolvers: ResolverMap = {
 
       company.owners = [user];
 
-      await company.save();
+      const savedCompany = await company.save();
 
-      return null;
+      return { company: savedCompany };
     }
   }
 };

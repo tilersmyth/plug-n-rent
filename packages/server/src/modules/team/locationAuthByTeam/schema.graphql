@@ -1,0 +1,7 @@
+type locationAuthByTeamResponse {
+  id: String
+}
+
+type Query {
+  locationAuthByTeam(locationId: String): locationAuthByTeamResponse!
+}

@@ -5,6 +5,7 @@ interface Props {
   currentStep: number;
   steps: number[];
   prev?: () => void;
+  complete?: () => void;
 }
 
 export class StepActionView extends React.PureComponent<Props> {
@@ -12,12 +13,8 @@ export class StepActionView extends React.PureComponent<Props> {
     super(props);
   }
 
-  done = () => {
-    console.log("Wizard complete!");
-  };
-
   render() {
-    const { currentStep, prev, steps } = this.props;
+    const { currentStep, prev, steps, complete } = this.props;
 
     return (
       <React.Fragment>
@@ -27,7 +24,7 @@ export class StepActionView extends React.PureComponent<Props> {
           </Button>
         )}
         {currentStep === steps.length && (
-          <Button className="btn-next" onClick={this.done}>
+          <Button className="btn-next" onClick={complete}>
             Add products later
           </Button>
         )}

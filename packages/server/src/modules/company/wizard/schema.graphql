@@ -3,5 +3,5 @@ type wizardResponse {
 }
 
 type Query {
-  verifyWizard(companyId: String, locationId: String): wizardResponse!
+  verifyWizard(companyId: String!, locationId: String): wizardResponse!
 }

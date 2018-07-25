@@ -9,11 +9,11 @@ import {
 } from "formik";
 
 import { StepActionView } from "./StepActionView";
-import { SelectCompany } from "../controller/step1/SelectCompany";
+import { SelectCompanyInput } from "../controller/step1/SelectCompany";
 import { validLocationSchema } from "../wizardSchemas";
-import { InputField } from "../../shared/InputField";
+import { InputField } from "../../../shared/InputField";
 
-import { LocationMutationVariables } from "../../../schemaTypes";
+import { LocationMutationVariables } from "../../../../schemaTypes";
 
 import { LocationType } from "../wizardTypes";
 
@@ -45,7 +45,7 @@ class C extends React.PureComponent<
               Additional locations can be added later
             </p>
             <FormItem label="Assign to company" colon={false}>
-              <SelectCompany company={company} />
+              <SelectCompanyInput company={company} />
             </FormItem>
 
             <Field

@@ -71,6 +71,7 @@ export const RegisterView = withFormik<Props, FormValues>({
   mapPropsToValues: () => ({ email: "", password: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
+    console.log(errors);
     if (errors) {
       setErrors(errors);
     }

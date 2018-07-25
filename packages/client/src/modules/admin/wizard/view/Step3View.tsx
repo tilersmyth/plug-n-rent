@@ -9,6 +9,7 @@ interface Props {
   Location: LocationType;
   steps: number[];
   prev?: () => void;
+  complete: () => void;
   onChange: (info: any) => void;
   loading: boolean;
   uploadState: {
@@ -25,8 +26,10 @@ export class Step3View extends React.PureComponent<Props> {
       Location,
       onChange,
       loading,
-      uploadState
+      uploadState,
+      complete
     } = this.props;
+
     const props = {
       name: "file",
       multiple: false,
@@ -69,7 +72,12 @@ export class Step3View extends React.PureComponent<Props> {
           )}
         </Card>
         <div className="steps-action">
-          <StepActionView currentStep={3} steps={steps} prev={prev} />
+          <StepActionView
+            currentStep={3}
+            steps={steps}
+            prev={prev}
+            complete={complete}
+          />
         </div>
       </React.Fragment>
     );

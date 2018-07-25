@@ -5,11 +5,7 @@ import { Address } from "../../../entity/Address";
 export const resolvers: ResolverMap = {
   Mutation: {
     createAddress: async (_, args: any) => {
-      const { locationId } = args;
-      console.log("FIRE");
-
       if (args.id) {
-        console.log("fired inside");
         const existingAddress = await Address.findOne({
           where: { id: args.id }
         });
@@ -43,6 +39,7 @@ export const resolvers: ResolverMap = {
         };
       }
 
+      const { locationId } = args;
       const location = await Location.findOne({
         where: { id: locationId }
       });

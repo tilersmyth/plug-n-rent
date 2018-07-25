@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import {
   LocationMutation,
   LocationMutationVariables
-} from "../../../../schemaTypes";
+} from "../../../../../schemaTypes";
 
 interface Props {
   currentStep: number;
@@ -20,12 +20,9 @@ class C extends React.PureComponent<
   ChildMutateProps<Props, LocationMutation, LocationMutationVariables>
 > {
   submit = async (values: LocationMutationVariables) => {
-    const response = await this.props.mutate({
+    await this.props.mutate({
       variables: values
     });
-    const { data } = response;
-
-    console.log(data);
 
     this.props.nextStep();
 

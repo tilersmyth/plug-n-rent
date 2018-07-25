@@ -3,7 +3,7 @@ import { graphql, ChildProps } from "react-apollo";
 import { RouteProps, Route, RouteComponentProps, Redirect } from "react-router";
 import gql from "graphql-tag";
 
-import { WizardQuery } from "../schemaTypes";
+import { WizardQuery } from "../../../schemaTypes";
 
 type Props = RouteProps;
 
@@ -29,9 +29,7 @@ class C extends React.PureComponent<ChildProps<Props, WizardQuery>> {
 
     if (location && location.company && !locationId) {
       return (
-        <Redirect
-          to={`/company/${location.company.id}/new-location/${location.id}`}
-        />
+        <Redirect to={`/admin/new/${location.company.id}/${location.id}`} />
       );
     }
 

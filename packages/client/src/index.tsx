@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { ApolloProvider } from "react-apollo";
+import { CookiesProvider } from "react-cookie";
 
 import registerServiceWorker from "./registerServiceWorker";
 import { client } from "./apollo";
@@ -10,7 +11,9 @@ import "./index.css";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Routes />
+    <CookiesProvider>
+      <Routes />
+    </CookiesProvider>
   </ApolloProvider>,
   document.getElementById("root") as HTMLElement
 );

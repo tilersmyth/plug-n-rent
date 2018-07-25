@@ -1,10 +1,22 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { Company } from "../../../entity/Company";
 import { Location } from "../../../entity/Location";
+import { Team } from "../../../entity/Team";
+import { User } from "../../../entity/User";
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    createLocation: async (_, args: any) => {
+    createLocation: async (_, args: any, { session }) => {
+      if (!session.userId) {
+        throw new Error("not authenticated");
+      }
+
+      const user = await User.findOne({ where: { id: session.userId } });
+
+      if (!user) {
+        throw new Error("not authenticated");
+      }
+
       const { locationId, name, companyId } = args;
 
       const existingLocation = await Location.findOne({
@@ -44,6 +56,14 @@ export const resolvers: ResolverMap = {
       });
 
       const response = await location.save();
+
+      const team = Team.create({
+        role: "admin",
+        location: response,
+        user
+      });
+
+      await team.save();
 
       return {
         ok: true,

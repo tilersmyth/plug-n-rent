@@ -7,13 +7,22 @@
 // GraphQL mutation operation: CreateCompanyMutation
 // ====================================================
 
-export interface CreateCompanyMutation_createCompany {
+export interface CreateCompanyMutation_createCompany_errors {
   path: string;
   message: string;
 }
 
+export interface CreateCompanyMutation_createCompany_company {
+  id: string;
+}
+
+export interface CreateCompanyMutation_createCompany {
+  errors: CreateCompanyMutation_createCompany_errors[] | null;
+  company: CreateCompanyMutation_createCompany_company | null;
+}
+
 export interface CreateCompanyMutation {
-  createCompany: CreateCompanyMutation_createCompany[] | null;
+  createCompany: CreateCompanyMutation_createCompany;
 }
 
 export interface CreateCompanyMutationVariables {
@@ -26,16 +35,97 @@ export interface CreateCompanyMutationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: UserCompanyQuery
+// GraphQL query operation: LocationAuthByTeamQuery
 // ====================================================
 
-export interface UserCompanyQuery_userCompanies {
+export interface LocationAuthByTeamQuery_locationAuthByTeam {
+  id: string | null;
+}
+
+export interface LocationAuthByTeamQuery {
+  locationAuthByTeam: LocationAuthByTeamQuery_locationAuthByTeam;
+}
+
+export interface LocationAuthByTeamQueryVariables {
+  locationId?: string | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: UserCompanyAuthQuery
+// ====================================================
+
+export interface UserCompanyAuthQuery_userCompanies {
+  id: string;
+}
+
+export interface UserCompanyAuthQuery {
+  userCompanies: UserCompanyAuthQuery_userCompanies[];
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: WizardQuery
+// ====================================================
+
+export interface WizardQuery_verifyWizard_location_company {
   id: string;
   name: string;
 }
 
-export interface UserCompanyQuery {
-  userCompanies: UserCompanyQuery_userCompanies[];
+export interface WizardQuery_verifyWizard_location_address {
+  id: string | null;
+  address: string;
+  address2: string | null;
+  city: string;
+  state: string;
+  postalCode: string;
+  lat: number;
+  lng: number;
+  phone: string;
+}
+
+export interface WizardQuery_verifyWizard_location {
+  id: string;
+  name: string;
+  company: WizardQuery_verifyWizard_location_company;
+  address: WizardQuery_verifyWizard_location_address | null;
+}
+
+export interface WizardQuery_verifyWizard {
+  location: WizardQuery_verifyWizard_location | null;
+}
+
+export interface WizardQuery {
+  verifyWizard: WizardQuery_verifyWizard;
+}
+
+export interface WizardQueryVariables {
+  companyId: string;
+  locationId?: string | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: SelectUserCompaniesQuery
+// ====================================================
+
+export interface SelectUserCompaniesQuery_userCompanies {
+  id: string;
+  name: string;
+}
+
+export interface SelectUserCompaniesQuery {
+  userCompanies: SelectUserCompaniesQuery_userCompanies[];
 }
 
 
@@ -47,8 +137,8 @@ export interface UserCompanyQuery {
 // ====================================================
 
 export interface LocationMutation_createLocation_location {
-  id: string | null;
-  name: string | null;
+  id: string;
+  name: string;
 }
 
 export interface LocationMutation_createLocation_errors {
@@ -118,51 +208,6 @@ export interface AddressMutationVariables {
   lat: number;
   lng: number;
   phone: string;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: WizardQuery
-// ====================================================
-
-export interface WizardQuery_verifyWizard_location_company {
-  id: string;
-  name: string;
-}
-
-export interface WizardQuery_verifyWizard_location_address {
-  id: string | null;
-  address: string;
-  address2: string | null;
-  city: string;
-  state: string;
-  postalCode: string;
-  lat: number;
-  lng: number;
-  phone: string;
-}
-
-export interface WizardQuery_verifyWizard_location {
-  id: string | null;
-  name: string | null;
-  company: WizardQuery_verifyWizard_location_company;
-  address: WizardQuery_verifyWizard_location_address | null;
-}
-
-export interface WizardQuery_verifyWizard {
-  location: WizardQuery_verifyWizard_location | null;
-}
-
-export interface WizardQuery {
-  verifyWizard: WizardQuery_verifyWizard;
-}
-
-export interface WizardQueryVariables {
-  companyId: string;
-  locationId?: string | null;
 }
 
 /* tslint:disable */

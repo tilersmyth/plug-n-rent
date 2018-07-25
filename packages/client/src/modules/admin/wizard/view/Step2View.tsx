@@ -11,10 +11,10 @@ import {
 import { StepActionView } from "./StepActionView";
 import { LocationType } from "../wizardTypes";
 import { AddressController } from "../controller/step2/AddressController";
-import { InputField } from "../../shared/InputField";
-import { InputPhoneMask } from "../../shared/InputFieldMask";
+import { InputField } from "../../../shared/InputField";
+import { InputPhoneMask } from "../../../shared/InputFieldMask";
 import { validAddressSchema } from "../wizardSchemas";
-import { AddressMutationVariables } from "../../../schemaTypes";
+import { AddressMutationVariables } from "../../../../schemaTypes";
 
 const FormItem = Form.Item;
 
@@ -140,8 +140,7 @@ export const Step2View = withFormik<Props, any>({
   mapPropsToValues: ({ Location, tempAddress }) => {
     return {
       locationId: Location.id,
-      ...tempAddress,
-      phone: Location.address ? Location.address.phone : ""
+      ...tempAddress
     };
   },
   handleSubmit: async (values, { props, setErrors }) => {
